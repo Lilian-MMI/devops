@@ -1,0 +1,117 @@
+version: "3"
+services:
+  nginx:
+    image: nginx:latest
+    container_name: ${APP_NAME:?err}-nginx
+    ports:
+      - "80:80"
+    volumes:
+      - "./app:/usr/share/nginx/html/"
+      - "./config/nginx:/etc/nginx/conf.d"
+    links:
+      - "mariadb:database"
+    networks:
+      app_net:
+        ipv4_address: 172.20.0.5
+
+  mariadb:
+      image: mariadb/server:10.3
+      container_name: ${APP_NAME:?err}-bdd
+      restart: always
+      ports:
+        - 3306:3306
+      environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_DATABASE: devops
+        MYSQL_USER: test
+        MYSQL_PASSWORD: test
+      volumes:
+        - ./sql:/var/lib/mysql
+      networks:
+        app_net:
+          ipv4_address: 172.20.0.2
+
+  nodejs:
+    container_name: ${APP_NAME:?err}-nodejs
+    build: .
+    volumes:
+      - .:/usr/app/
+      - /usr/app/node_modules
+    ports:
+      - "6060:6060"
+    depends_on:
+      - mariadb
+    networks:
+      app_net:
+        ipv4_address: 172.20.0.4
+
+  app:
+      image: python:latest
+      container_name: ${APP_NAME:?err}-python-master
+      command: python "/app/py_master/main.py"
+      restart: always
+      ports:
+          - 5000:5000
+      depends_on:
+          - mariadb
+      networks:
+          app_net:
+              ipv4_address: 172.20.0.3
+
+  python_unite1:
+    image: python:latest
+    container_name: ${APP_NAME:?err}-python-slave1
+    command: python "/app/py_script/main.py"
+
+    networks:
+      app_net:
+        ipv4_address: 172.20.0.11
+  
+  python_unite2:
+    image: python:latest
+    container_name: ${APP_NAME:?err}-python-slave2
+    command: python "/app/py_script/test.py"
+
+    networks:
+      app_net:
+        ipv4_address: 172.20.0.12
+  
+  python_unite3:
+    image: python:latest
+    container_name: ${APP_NAME:?err}-python-slave3
+    command: python "/app/py_script/test.py"
+
+    networks:
+      app_net:
+        ipv4_address: 172.20.0.13
+
+  python_unite4:
+    image: python:latest
+    container_name: ${APP_NAME:?err}-python-slave4
+    command: python "/app/py_script/test.py"
+
+    networks:
+      app_net:
+        ipv4_address: 172.20.0.14
+
+  python_unite5:
+    image: python:latest
+    container_name: ${APP_NAME:?err}-python-slave5
+    command: python "/app/py_script/test.py"
+
+    networks:
+      app_net:
+        ipv4_address: 172.20.0.15
+
+networks:
+  app_net:
+    driver: bridge
+    enable_ipv6: false
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.20.0.0/24
+        gateway: 172.20.0.1
+
+volumes:
+  dbdata:
