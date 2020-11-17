@@ -55,7 +55,7 @@ services:
           - mariadb
       networks:
           app_net:
-              ipv4_address: 172.20.0.3
+              ipv4_address: 172.20.0.30
 
   python_unite1:
     image: python:latest
