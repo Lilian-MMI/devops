@@ -46,9 +46,8 @@ services:
         ipv4_address: 172.20.0.4
 
   app:
-      image: python:latest
+      image: python_master:latest
       container_name: ${APP_NAME:?err}-python-master
-      command: python "/app/py_master/main.py"
       restart: always
       ports:
           - 5000:5000
