@@ -6,4 +6,4 @@ RUN pip install mysql-connector-python
 
 COPY . .
 
-CMD [ "python_master", "./main.py", "--host", "0.0.0.0"]
+CMD [ "python", "./main.py", "--host", "0.0.0.0"]
