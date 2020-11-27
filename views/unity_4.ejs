@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>DevOps</title>
-    <script src="assets/script/Chart.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <link rel="stylesheet" href="assets/css/all.css" />
     <link rel="stylesheet" href="assets/css/tailwind.min.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="http://timeago.yarp.com/jquery.timeago.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.1.0/jquery.timeago.js"></script>
 </head>
 
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
@@ -48,7 +48,7 @@
                             
                             <script>
 
-                                new Chart(document.getElementById("chartjs-7"), {
+                                var chart1 = new Chart(document.getElementById("chartjs-7"), {
                                     "type": "line",
                                     "data": {
                                         "labels": [<% result.forEach(function(entry) { %> jQuery.timeago('<%- JSON.stringify(entry.date_insertion) %>'), <% }) %>],
@@ -85,7 +85,7 @@
                             <canvas id="chartjs-0" class="chartjs" width="undefined" height="undefined"></canvas>
                             <script>
 
-                                new Chart(document.getElementById("chartjs-0"), {
+                                var chart2 = new Chart(document.getElementById("chartjs-0"), {
                                     "type": "line",
                                     "data": {
                                         "labels": [<% result.forEach(function(entry) { %> jQuery.timeago('<%- JSON.stringify(entry.date_insertion) %>'), <% }) %>],
@@ -123,7 +123,7 @@
                             
                             <script>
 
-                                new Chart(document.getElementById("chartjs-2"), {
+                                var chart3 = new Chart(document.getElementById("chartjs-2"), {
                                     "type": "line",
                                     "data": {
                                         "labels": [<% result.forEach(function(entry) { %> jQuery.timeago('<%- JSON.stringify(entry.date_insertion) %>'), <% }) %>],
@@ -160,7 +160,7 @@
                             <canvas id="chartjs-3" class="chartjs" width="undefined" height="undefined"></canvas>
                             <script>
 
-                                new Chart(document.getElementById("chartjs-3"), {
+                                var chart4 = new Chart(document.getElementById("chartjs-3"), {
                                     "type": "line",
                                     "data": {
                                         "labels": [<% result.forEach(function(entry) { %> jQuery.timeago('<%- JSON.stringify(entry.date_insertion) %>'), <% }) %>],
@@ -197,7 +197,7 @@
                             
                             <script>
 
-                                new Chart(document.getElementById("chartjs-4"), {
+                                var chart5 = new Chart(document.getElementById("chartjs-4"), {
                                     "type": "line",
                                     "data": {
                                         "labels": [<% result.forEach(function(entry) { %> jQuery.timeago('<%- JSON.stringify(entry.date_insertion) %>'), <% }) %>],
@@ -234,7 +234,7 @@
                             <canvas id="chartjs-5" class="chartjs" width="undefined" height="undefined"></canvas>
                             <script>
 
-                                new Chart(document.getElementById("chartjs-5"), {
+                                var chart6 = new Chart(document.getElementById("chartjs-5"), {
                                     "type": "line",
                                     "data": {
                                         "labels": [<% result.forEach(function(entry) { %> jQuery.timeago('<%- JSON.stringify(entry.date_insertion) %>'), <% }) %>],
@@ -271,7 +271,7 @@
                             
                             <script>
 
-                                new Chart(document.getElementById("chartjs-6"), {
+                                var chart7 = new Chart(document.getElementById("chartjs-6"), {
                                     "type": "line",
                                     "data": {
                                         "labels": [<% result.forEach(function(entry) { %> jQuery.timeago('<%- JSON.stringify(entry.date_insertion) %>'), <% }) %>],
@@ -308,7 +308,7 @@
                             <canvas id="chartjs-8" class="chartjs" width="undefined" height="undefined"></canvas>
                             <script>
 
-                                new Chart(document.getElementById("chartjs-8"), {
+                                var chart8 = new Chart(document.getElementById("chartjs-8"), {
                                     "type": "line",
                                     "data": {
                                         "labels": [<% result.forEach(function(entry) { %> jQuery.timeago('<%- JSON.stringify(entry.date_insertion) %>'), <% }) %>],
@@ -344,7 +344,7 @@
                             
                             <script>
 
-                                new Chart(document.getElementById("chartjs-9"), {
+                                var chart9 = new Chart(document.getElementById("chartjs-9"), {
                                     "type": "line",
                                     "data": {
                                         "labels": [<% result.forEach(function(entry) { %> jQuery.timeago('<%- JSON.stringify(entry.date_insertion) %>'), <% }) %>],
@@ -380,7 +380,7 @@
                             <canvas id="chartjs-10" class="chartjs" width="undefined" height="undefined"></canvas>
                             <script>
 
-                                new Chart(document.getElementById("chartjs-10"), {
+                                var chart10 = new Chart(document.getElementById("chartjs-10"), {
                                     "type": "line",
                                     "data": {
                                         "labels": [<% result.forEach(function(entry) { %> jQuery.timeago('<%- JSON.stringify(entry.date_insertion) %>'), <% }) %>],
@@ -409,6 +409,85 @@
             
         </div>
     </div>
+        
+    <script type="text/javascript">
+        let last_update;
+        var getData = function() {
+            $.ajax({
+                url: 'http://localhost:6060/update4',
+                success: function(data) {
+                    current_update = data.result.map(elm => (elm['date_insertion']))
+                    if(last_update == null || last_update.toString() !== current_update.toString()) {
+                        chart1.data.labels.shift();
+                        chart1.data.labels.push(data.result.map(elm => jQuery.timeago(elm['date_insertion'])));
+                        chart1.data.datasets[0].data.shift();
+                        chart1.data.datasets[0].data.push(data.result.map(elm => elm['temp_ex']));
+
+                        chart2.data.labels.shift();
+                        chart2.data.labels.push(data.result.map(elm => jQuery.timeago(elm['date_insertion'])));
+                        chart2.data.datasets[0].data.shift();
+                        chart2.data.datasets[0].data.push(data.result.map(elm => elm['temp_cuve']));
+
+                        chart3.data.labels.shift();
+                        chart3.data.labels.push(data.result.map(elm => jQuery.timeago(elm['date_insertion'])));
+                        chart3.data.datasets[0].data.shift();
+                        chart3.data.datasets[0].data.push(data.result.map(elm => elm['poids_cuve']));
+
+                        chart4.data.labels.shift();
+                        chart4.data.labels.push(data.result.map(elm => jQuery.timeago(elm['date_insertion'])));
+                        chart4.data.datasets[0].data.shift();
+                        chart4.data.datasets[0].data.push(data.result.map(elm => elm['m_ph']));
+
+                        chart5.data.labels.shift();
+                        chart5.data.labels.push(data.result.map(elm => jQuery.timeago(elm['date_insertion'])));
+                        chart5.data.datasets[0].data.shift();
+                        chart5.data.datasets[0].data.push(data.result.map(elm => elm['m_k']));
+
+                        chart6.data.labels.shift();
+                        chart6.data.labels.push(data.result.map(elm => jQuery.timeago(elm['date_insertion'])));
+                        chart6.data.datasets[0].data.shift();
+                        chart6.data.datasets[0].data.push(data.result.map(elm => elm['c_nacl']));
+
+                        chart7.data.labels.shift();
+                        chart7.data.labels.push(data.result.map(elm => jQuery.timeago(elm['date_insertion'])));
+                        chart7.data.datasets[0].data.shift();
+                        chart7.data.datasets[0].data.push(data.result.map(elm => elm['bact_sal']));
+                        
+                        chart8.data.labels.shift();
+                        chart8.data.labels.push(data.result.map(elm => jQuery.timeago(elm['date_insertion'])));
+                        chart8.data.datasets[0].data.shift();
+                        chart8.data.datasets[0].data.push(data.result.map(elm => elm['bact_e_coli']));
+
+                        chart9.data.labels.shift();
+                        chart9.data.labels.push(data.result.map(elm => jQuery.timeago(elm['date_insertion'])));
+                        chart9.data.datasets[0].data.shift();
+                        chart9.data.datasets[0].data.push(data.result.map(elm => elm['bact_list']));
+
+                        chart10.data.labels.shift();
+                        chart10.data.labels.push(data.result.map(elm => jQuery.timeago(elm['date_insertion'])));
+                        chart10.data.datasets[0].data.shift();
+                        chart10.data.datasets[0].data.push(data.result.map(elm => elm['poids_pro']));
+
+                        chart1.update();
+                        chart2.update();
+                        chart3.update();
+                        chart4.update();
+                        chart5.update();
+                        chart6.update();
+                        chart7.update();
+                        chart8.update();
+                        chart9.update();
+                        chart10.update();
+
+                        last_update = data.result.map(elm => (elm['date_insertion']))
+                    }
+
+                }
+            });
+        };
+        setInterval(getData, 3000);
+
+</script>
 </body>
 
 </html>

@@ -75,6 +75,39 @@ app.get("/update1", function(req, res){
     });
 });
 
+app.get("/update2", function(req, res){
+    var cmd = `SELECT * FROM (SELECT * FROM unity WHERE id_unite = 2 ORDER BY date_insertion DESC LIMIT 1) as quer ORDER BY quer.date_insertion ASC`;
+    conn.query(cmd, function(err, result) {
+        if (err) throw err;
+        res.send({result: result});
+    });
+});
+
+app.get("/update3", function(req, res){
+    var cmd = `SELECT * FROM (SELECT * FROM unity WHERE id_unite = 3 ORDER BY date_insertion DESC LIMIT 1) as quer ORDER BY quer.date_insertion ASC`;
+    conn.query(cmd, function(err, result) {
+        if (err) throw err;
+        res.send({result: result});
+    });
+});
+
+app.get("/update4", function(req, res){
+    var cmd = `SELECT * FROM (SELECT * FROM unity WHERE id_unite = 4 ORDER BY date_insertion DESC LIMIT 1) as quer ORDER BY quer.date_insertion ASC`;
+    conn.query(cmd, function(err, result) {
+        if (err) throw err;
+        res.send({result: result});
+    });
+});
+
+app.get("/update5", function(req, res){
+    var cmd = `SELECT * FROM (SELECT * FROM unity WHERE id_unite = 5 ORDER BY date_insertion DESC LIMIT 1) as quer ORDER BY quer.date_insertion ASC`;
+    conn.query(cmd, function(err, result) {
+        if (err) throw err;
+        res.send({result: result});
+    });
+});
+
+
 app.engine('html', require('ejs').renderFile);
 app.set('port', process.env.PORT || 6060);
 app.set('view engine', 'html');
