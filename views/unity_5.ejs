@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DevOps</title>
+    <script src="assets/script/Chart.bundle.min.js"></script>
+    <link rel="stylesheet" href="assets/css/all.css" />
+    <link rel="stylesheet" href="assets/css/tailwind.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="http://timeago.yarp.com/jquery.timeago.js"></script>
+</head>
+
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+    <nav id="header" class="bg-white fixed w-full z-10 top-0 shadow">
+        <div class="w-full container mx-auto flex flex-wrap items-center mt-0 pt-3 pb-3">
+            <div class="w-1/2 pl-2 md:pl-0">
+                <a class="text-gray-900 text-base xl:text-xl no-underline hover:no-underline font-bold"
+                    href="/">
+                    DevOps Dashboard
+                </a>
+            </div>
+            <div class="w-1/2 pr-0">
+                <div class="flex relative inline-block float-right">
+                    <div class="relative text-sm">
+                        <div class="flex items-center">
+                            <img class="w-8 h-8 rounded-full mr-4" src="http://i.pravatar.cc/300?img=10"
+                                alt="Avatar of User">
+                            <span class="hidden md:inline-block">Hi, Root</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container w-full mx-auto pt-20">
+        <div class="w-full px-4 md:px-0 md:mt-8 mb-16 text-gray-800 leading-normal">
+            <div class="flex flex-row flex-wrap flex-grow mt-2">
+                <div class="w-full md:w-1/2 p-3">
+                    <div class="bg-white border rounded shadow">
+                        <div class="border-b p-3">
+                            <h5 class="font-bold uppercase text-gray-600">Température extérieure</h5>
+                        </div>
+                        <div class="p-5">
+                            <canvas id="chartjs-7" class="chartjs" width="undefined" height="undefined"></canvas>
+                            
+                            <script>
+
+                                new Chart(document.getElementById("chartjs-7"), {
+                                    "type": "line",
+                                    "data": {
+                                        "labels": [<% result.forEach(function(entry) { %> jQuery.timeago('<%- JSON.stringify(entry.date_insertion) %>'), <% }) %>],
+                                        "datasets": [{
+                                            "label": "Température extérieure ",
+                                            "data": [ <% result.forEach(function(entry) { %><%= entry.temp_ex %>, <% }) %> ],
+                                            "fill": true,
+                                            "borderColor": "rgb(75, 192, 192)",
+                                            "lineTension": 0.1
+                                        }]
+                                    },
+                                    "options": {
+                                        "scales": {
+                                            "yAxes": [{
+                                                "ticks": {
+                                                    "min": 8,
+                                                    "stepSize": 1
+                                                },
+                                            }]
+                                        },
+                                    }
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-1/2 p-3">
+                    <div class="bg-white border rounded shadow">
+                        <div class="border-b p-3">
+                            <h5 class="font-bold uppercase text-gray-600">Température cuve</h5>
+                        </div>
+                        <div class="p-5">
+                            <canvas id="chartjs-0" class="chartjs" width="undefined" height="undefined"></canvas>
+                            <script>
+
+                                new Chart(document.getElementById("chartjs-0"), {
+                                    "type": "line",
+                                    "data": {
+                                        "labels": [<% result.forEach(function(entry) { %> jQuery.timeago('<%- JSON.stringify(entry.date_insertion) %>'), <% }) %>],
+                                        "datasets": [{
+                                            "label": "Température cuve",
+                                            "data": [ <% result.forEach(function(entry) { %><%= entry.temp_cuve %>, <% }) %> ],
+                                            "fill": true,
+                                            "borderColor": "rgb(75, 192, 192)",
+                                            "lineTension": 0.1
+                                        }]
+                                    },
+                                    "options": {
+                                        "scales": {
+                                            "yAxes": [{
+                                                "ticks": {
+                                                    "min": 2.5,
+                                                    "stepSize": 0.5
+                                                },
+                                            }]
+                                        },
+                                    }
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+
+            <div class="w-full md:w-1/2 p-3">
+                    <div class="bg-white border rounded shadow">
+                        <div class="border-b p-3">
+                            <h5 class="font-bold uppercase text-gray-600">Poids	du lait en cuve</h5>
+                        </div>
+                        <div class="p-5">
+                            <canvas id="chartjs-2" class="chartjs" width="undefined" height="undefined"></canvas>
+                            
+                            <script>
+
+                                new Chart(document.getElementById("chartjs-2"), {
+                                    "type": "line",
+                                    "data": {
+                                        "labels": [<% result.forEach(function(entry) { %> jQuery.timeago('<%- JSON.stringify(entry.date_insertion) %>'), <% }) %>],
+                                        "datasets": [{
+                                            "label": "Poids	du lait en cuve",
+                                            "data": [ <% result.forEach(function(entry) { %><%= entry.poids_cuve %>, <% }) %> ],
+                                            "fill": true,
+                                            "borderColor": "rgb(75, 192, 192)",
+                                            "lineTension": 0.1
+                                        }]
+                                    },
+                                    "options": {
+                                        "scales": {
+                                            "yAxes": [{
+                                                "ticks": {
+                                                    "min": 3500,
+                                                    "stepSize": 100
+                                                },
+                                            }]
+                                        },
+                                    }
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-1/2 p-3">
+                    <div class="bg-white border rounded shadow">
+                        <div class="border-b p-3">
+                            <h5 class="font-bold uppercase text-gray-600">Mesure pH</h5>
+                        </div>
+                        <div class="p-5">
+                            <canvas id="chartjs-3" class="chartjs" width="undefined" height="undefined"></canvas>
+                            <script>
+
+                                new Chart(document.getElementById("chartjs-3"), {
+                                    "type": "line",
+                                    "data": {
+                                        "labels": [<% result.forEach(function(entry) { %> jQuery.timeago('<%- JSON.stringify(entry.date_insertion) %>'), <% }) %>],
+                                        "datasets": [{
+                                            "label": "Mesure pH",
+                                            "data": [ <% result.forEach(function(entry) { %><%= entry.m_ph %>, <% }) %> ],
+                                            "fill": true,
+                                            "borderColor": "rgb(75, 192, 192)",
+                                            "lineTension": 0.1
+                                        }]
+                                    },
+                                    "options": {
+                                        "scales": {
+                                            "yAxes": [{
+                                                "ticks": {
+                                                    "min": 6.8,
+                                                    "stepSize": 0.1
+                                                },
+                                            }]
+                                        },
+                                    }
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 p-3">
+                    <div class="bg-white border rounded shadow">
+                        <div class="border-b p-3">
+                            <h5 class="font-bold uppercase text-gray-600">Mesure K+</h5>
+                        </div>
+                        <div class="p-5">
+                            <canvas id="chartjs-4" class="chartjs" width="undefined" height="undefined"></canvas>
+                            
+                            <script>
+
+                                new Chart(document.getElementById("chartjs-4"), {
+                                    "type": "line",
+                                    "data": {
+                                        "labels": [<% result.forEach(function(entry) { %> jQuery.timeago('<%- JSON.stringify(entry.date_insertion) %>'), <% }) %>],
+                                        "datasets": [{
+                                            "label": "Mesure K+",
+                                            "data": [ <% result.forEach(function(entry) { %><%= entry.m_k %>, <% }) %> ],
+                                            "fill": true,
+                                            "borderColor": "rgb(75, 192, 192)",
+                                            "lineTension": 0.1
+                                        }]
+                                    },
+                                    "options": {
+                                        "scales": {
+                                            "yAxes": [{
+                                                "ticks": {
+                                                    "min": 35,
+                                                    "stepSize": 3
+                                                },
+                                            }]
+                                        },
+                                    }
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-1/2 p-3">
+                    <div class="bg-white border rounded shadow">
+                        <div class="border-b p-3">
+                            <h5 class="font-bold uppercase text-gray-600">Concentration	de NaCl</h5>
+                        </div>
+                        <div class="p-5">
+                            <canvas id="chartjs-5" class="chartjs" width="undefined" height="undefined"></canvas>
+                            <script>
+
+                                new Chart(document.getElementById("chartjs-5"), {
+                                    "type": "line",
+                                    "data": {
+                                        "labels": [<% result.forEach(function(entry) { %> jQuery.timeago('<%- JSON.stringify(entry.date_insertion) %>'), <% }) %>],
+                                        "datasets": [{
+                                            "label": "Concentration	de NaCl",
+                                            "data": [ <% result.forEach(function(entry) { %><%= entry.c_nacl %>, <% }) %> ],
+                                            "fill": true,
+                                            "borderColor": "rgb(75, 192, 192)",
+                                            "lineTension": 0.1
+                                        }]
+                                    },
+                                    "options": {
+                                        "scales": {
+                                            "yAxes": [{
+                                                "ticks": {
+                                                    "min": 1,
+                                                    "stepSize": 0.1
+                                                },
+                                            }]
+                                        },
+                                    }
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </div>   
+                <div class="w-full md:w-1/2 p-3">
+                    <div class="bg-white border rounded shadow">
+                        <div class="border-b p-3">
+                            <h5 class="font-bold uppercase text-gray-600">Niveau bactérien salmonelle</h5>
+                        </div>
+                        <div class="p-5">
+                            <canvas id="chartjs-6" class="chartjs" width="undefined" height="undefined"></canvas>
+                            
+                            <script>
+
+                                new Chart(document.getElementById("chartjs-6"), {
+                                    "type": "line",
+                                    "data": {
+                                        "labels": [<% result.forEach(function(entry) { %> jQuery.timeago('<%- JSON.stringify(entry.date_insertion) %>'), <% }) %>],
+                                        "datasets": [{
+                                            "label": "Niveau bactérien salmonelle",
+                                            "data": [ <% result.forEach(function(entry) { %><%= entry.bact_sal %>, <% }) %> ],
+                                            "fill": true,
+                                            "borderColor": "rgb(75, 192, 192)",
+                                            "lineTension": 0.1
+                                        }]
+                                    },
+                                    "options": {
+                                        "scales": {
+                                            "yAxes": [{
+                                                "ticks": {
+                                                    "min": 17,
+                                                    "stepSize": 5
+                                                },
+                                            }]
+                                        },
+                                    }
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-1/2 p-3">
+                    <div class="bg-white border rounded shadow">
+                        <div class="border-b p-3">
+                            <h5 class="font-bold uppercase text-gray-600">Niveau bactérien E-coli</h5>
+                        </div>
+                        <div class="p-5">
+                            <canvas id="chartjs-8" class="chartjs" width="undefined" height="undefined"></canvas>
+                            <script>
+
+                                new Chart(document.getElementById("chartjs-8"), {
+                                    "type": "line",
+                                    "data": {
+                                        "labels": [<% result.forEach(function(entry) { %> jQuery.timeago('<%- JSON.stringify(entry.date_insertion) %>'), <% }) %>],
+                                        "datasets": [{
+                                            "label": "Niveau bactérien E-coli",
+                                            "data": [ <% result.forEach(function(entry) { %><%= entry.bact_e_coli %>, <% }) %> ],
+                                            "fill": true,
+                                            "borderColor": "rgb(75, 192, 192)",
+                                            "lineTension": 0.1
+                                        }]
+                                    },
+                                    "options": {
+                                        "scales": {
+                                            "yAxes": [{
+                                                "ticks": {
+                                                    "stepSize": 4
+                                                },
+                                            }]
+                                        },
+                                    }
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </div> 
+                <div class="w-full md:w-1/2 p-3">
+                    <div class="bg-white border rounded shadow">
+                        <div class="border-b p-3">
+                            <h5 class="font-bold uppercase text-gray-600">Niveau bactérien Listéria</h5>
+                        </div>
+                        <div class="p-5">
+                            <canvas id="chartjs-9" class="chartjs" width="undefined" height="undefined"></canvas>
+                            
+                            <script>
+
+                                new Chart(document.getElementById("chartjs-9"), {
+                                    "type": "line",
+                                    "data": {
+                                        "labels": [<% result.forEach(function(entry) { %> jQuery.timeago('<%- JSON.stringify(entry.date_insertion) %>'), <% }) %>],
+                                        "datasets": [{
+                                            "label": "Niveau bactérien Listéria",
+                                            "data": [ <% result.forEach(function(entry) { %><%= entry.bact_e_coli %>, <% }) %> ],
+                                            "fill": true,
+                                            "borderColor": "rgb(75, 192, 192)",
+                                            "lineTension": 0.1
+                                        }]
+                                    },
+                                    "options": {
+                                        "scales": {
+                                            "yAxes": [{
+                                                "ticks": {
+                                                    "stepSize": 4
+                                                },
+                                            }]
+                                        },
+                                    }
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-1/2 p-3">
+                    <div class="bg-white border rounded shadow">
+                        <div class="border-b p-3">
+                            <h5 class="font-bold uppercase text-gray-600">Poids	du produit fini réalisé</h5>
+                        </div>
+                        <div class="p-5">
+                            <canvas id="chartjs-10" class="chartjs" width="undefined" height="undefined"></canvas>
+                            <script>
+
+                                new Chart(document.getElementById("chartjs-10"), {
+                                    "type": "line",
+                                    "data": {
+                                        "labels": [<% result.forEach(function(entry) { %> jQuery.timeago('<%- JSON.stringify(entry.date_insertion) %>'), <% }) %>],
+                                        "datasets": [{
+                                            "label": "Poids	du produit fini réalisé",
+                                            "data": [ <% result.forEach(function(entry) { %><%= entry.poids_pro %>, <% }) %> ],
+                                            "fill": true,
+                                            "borderColor": "rgb(75, 192, 192)",
+                                            "lineTension": 0.1
+                                        }]
+                                    },
+                                    "options": {
+                                        "scales": {
+                                            "yAxes": [{
+                                                "ticks": {
+                                                },
+                                            }]
+                                        },
+                                    }
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</body>
+
+</html>

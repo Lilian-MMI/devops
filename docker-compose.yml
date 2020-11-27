@@ -1,18 +1,18 @@
 version: "3"
 services:
-#  nginx:
-#    image: nginx:latest
-#    container_name: ${APP_NAME:?err}-nginx
-#    ports:
-#      - "80:80"
-#    volumes:
-#      - "./app:/usr/share/nginx/html/"
-#      - "./config/nginx:/etc/nginx/conf.d"
-#    links:
-#      - "mariadb:database"
-#    networks:
-#      app_net:
-#        ipv4_address: 172.20.0.5
+  nginx:
+    image: nginx:latest
+    container_name: ${APP_NAME:?err}-nginx
+    ports:
+      - "80:80"
+    volumes:
+      - "./app:/usr/share/nginx/html/"
+      - "./config/nginx:/etc/nginx/conf.d"
+    links:
+      - "mariadb:database"
+    networks:
+      app_net:
+        ipv4_address: 172.20.0.5
 
   mariadb:
       image: mariadb/server:10.3
@@ -31,19 +31,18 @@ services:
         app_net:
           ipv4_address: 172.20.0.2
 
-#  nodejs:
-#    container_name: ${APP_NAME:?err}-nodejs
-#    build: .
-#    volumes:
-#      - .:/usr/app/
-#      - /usr/app/node_modules
-#    ports:
-#      - "6060:6060"
-#    depends_on:
-#      - mariadb
-#    networks:
-#      app_net:
-#        ipv4_address: 172.20.0.4
+  nodejs:
+    container_name: ${APP_NAME:?err}-nodejs
+    build: .
+    restart: always
+    command: npm start
+    ports:
+      - "6060:6060"
+    depends_on:
+      - mariadb
+    networks:
+      app_net:
+        ipv4_address: 172.20.0.4
 
   app:
       image: python_master:latest

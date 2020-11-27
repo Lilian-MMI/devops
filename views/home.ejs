@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DevOps</title>
+    <script src="assets/script/Chart.bundle.min.js"></script>
+    <link rel="stylesheet" href="assets/css/all.css" />
+    <link rel="stylesheet" href="assets/css/tailwind.min.css" />
+    <style>
+        .box {
+            transition: box-shadow .3s;
+        }
+
+        .box:hover {
+            box-shadow: 0 0 11px rgba(33, 33, 33, .2);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+
+    <nav id="header" class="bg-white fixed w-full z-10 top-0 shadow">
+        <div class="w-full container mx-auto flex flex-wrap items-center mt-0 pt-3 pb-3">
+            <div class="w-1/2 pl-2 md:pl-0">
+                <a class="text-gray-900 text-base xl:text-xl no-underline hover:no-underline font-bold"
+                    href="/">
+                    DevOps Dashboard
+                </a>
+            </div>
+            <div class="w-1/2 pr-0">
+                <div class="flex relative inline-block float-right">
+                    <div class="relative text-sm">
+                        <div class="flex items-center">
+                            <img class="w-8 h-8 rounded-full mr-4" src="http://i.pravatar.cc/300?img=10"
+                                alt="Avatar of User">
+                            <span class="hidden md:inline-block">Hi, Root</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="content-center container w-full mx-auto">
+        <div class="w-full px-4 md:px-0 text-gray-800 leading-normal">
+            <div class="w-full items-center h-screen text-center flex justify-center">
+                <ul>
+                    <h2 class="text-gray-800 mt-5 mb-4 xl:text-xl no-underline hover:no-underline font-bold">
+                        Ensemble
+                        des unités de production</h2>
+                    <hr class="border-b-2 border-gray-400 my-8 mx-4">
+                    <li onclick="redirect('unity1')">
+                        <div class=" box p-4 mb-3 flex justify-between items-center bg-white border border-white shadow
+                        rounded-lg cursor-pointer">
+                            <div class="flex items-center" style="margin-right: 50px">
+                                <img style="height:18px !important" src="assets/svg/cpu.svg" />
+                                <p class="ml-2  font-semibold font-sans tracking-wide">Unité de production numéro 1</p>
+                            </div>
+                            <div class="flex">
+                                <img src="assets/svg/arrow-right.svg" />
+                            </div>
+                        </div>
+                    </li>
+                    <li onclick="redirect('unity2')">
+                        <div class="box p-4 mb-3 flex justify-between items-center bg-white border border-white shadow rounded-lg
+                            cursor-pointer">
+                            <div class="flex items-center" style="margin-right: 50px">
+                                <img style="height:18px !important" src="assets/svg/cpu.svg" />
+                                <p class="ml-2  font-semibold font-sans tracking-wide">Unité de production numéro 2</p>
+                            </div>
+                            <div class="flex">
+                                <a href=""><img height="10px" src="assets/svg/arrow-right.svg" /></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li onclick="redirect('unity3')">
+                        <div class="box p-4 mb-3 flex justify-between items-center bg-white border border-white shadow rounded-lg
+                            cursor-pointer">
+                            <div class="flex items-center" style="margin-right: 50px">
+                                <img style="height:18px !important" src="assets/svg/cpu.svg" />
+                                <p class="ml-2  font-semibold font-sans tracking-wide">Unité de production numéro 3</p>
+                            </div>
+                            <div class="flex">
+                                <a href=""><img height="10px" src="assets/svg/arrow-right.svg" /></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li onclick="redirect('unity4')">
+                        <div class="box p-4 mb-3 flex justify-between items-center bg-white border border-white shadow rounded-lg
+                            cursor-pointer">
+                            <div class="flex items-center" style="margin-right: 50px">
+                                <img style="height:18px !important" src="assets/svg/cpu.svg" />
+                                <p class="ml-2  font-semibold font-sans tracking-wide">Unité de production numéro 4</p>
+                            </div>
+                            <div class="flex">
+                                <a href=""><img height="10px" src="assets/svg/arrow-right.svg" /></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li onclick="redirect('unity5')">
+                        <div class="box p-4 mb-3 flex justify-between items-center bg-white border border-white shadow rounded-lg
+                            cursor-pointer">
+                            <div class="flex items-center" style="margin-right: 50px">
+                                <img style="height:18px !important" src="assets/svg/cpu.svg" />
+                                <p class="ml-2  font-semibold font-sans tracking-wide">Unité de production numéro 5</p>
+                            </div>
+                            <div class="flex">
+                                <a href=""><img height="10px" src="assets/svg/arrow-right.svg" /></a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script>
+    function redirect(i) {
+        window.location.href = i ;
+    }
+</script>
+
+</html>
