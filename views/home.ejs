@@ -9,7 +9,6 @@
     <script src="assets/script/Chart.bundle.min.js"></script>
     <link rel="stylesheet" href="assets/css/all.css" />
     <link rel="stylesheet" href="assets/css/tailwind.min.css" />
-    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
     <style>
         .box {
             transition: box-shadow .3s;
@@ -27,13 +26,10 @@
         <div class="w-full container mx-auto flex flex-wrap items-center mt-0 pt-3 pb-3">
             <div class="w-1/2 pl-2 md:pl-0">
                 <a class="text-gray-900 text-base xl:text-xl no-underline hover:no-underline font-bold"
-                    href="index.html">
+                    href="/">
                     DevOps Dashboard
                 </a>
             </div>
-            <script>
-                var socket = io();
-            </script>
             <div class="w-1/2 pr-0">
                 <div class="flex relative inline-block float-right">
                     <div class="relative text-sm">
@@ -118,13 +114,13 @@
                     </li>
                 </ul>
             </div>
-
         </div>
     </div>
+
 </body>
 <script>
     function redirect(i) {
-        window.location.href = i + '.html';
+        window.location.href = i ;
     }
 </script>
 

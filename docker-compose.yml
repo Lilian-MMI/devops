@@ -34,9 +34,8 @@ services:
   nodejs:
     container_name: ${APP_NAME:?err}-nodejs
     build: .
-    volumes:
-      - .:/usr/app/
-      - /usr/app/node_modules
+    restart: always
+    command: npm start
     ports:
       - "6060:6060"
     depends_on:
@@ -49,8 +48,9 @@ services:
       image: python_master:latest
       container_name: ${APP_NAME:?err}-python-master
       restart: always
+      build: ./app/py_master/
       ports:
-          - 5000:5000
+          - 5001:5000
       depends_on:
           - mariadb
       networks:
@@ -58,49 +58,50 @@ services:
               ipv4_address: 172.20.0.3
 
   python_unite1:
-    image: python:latest
+    image: python_slave1:latest
+    build: ./app/py_script/u1
+    restart: always
     container_name: ${APP_NAME:?err}-python-slave1
-    command: python "/app/py_script/main.py"
-
     networks:
       app_net:
         ipv4_address: 172.20.0.11
-  
-  python_unite2:
-    image: python:latest
-    container_name: ${APP_NAME:?err}-python-slave2
-    command: python "/app/py_script/test.py"
 
+  python_unite2:
+    image: python_slave2:latest
+    build: ./app/py_script/u2
+    restart: always
+    container_name: ${APP_NAME:?err}-python-slave2
     networks:
       app_net:
         ipv4_address: 172.20.0.12
-  
-  python_unite3:
-    image: python:latest
-    container_name: ${APP_NAME:?err}-python-slave3
-    command: python "/app/py_script/test.py"
 
+  python_unite3:
+    image: python_slave3:latest
+    build: ./app/py_script/u3
+    restart: always
+    container_name: ${APP_NAME:?err}-python-slave3
     networks:
       app_net:
         ipv4_address: 172.20.0.13
 
   python_unite4:
-    image: python:latest
+    image: python_slave4:latest
+    build: ./app/py_script/u4
+    restart: always
     container_name: ${APP_NAME:?err}-python-slave4
-    command: python "/app/py_script/test.py"
-
     networks:
       app_net:
         ipv4_address: 172.20.0.14
 
   python_unite5:
-    image: python:latest
+    image: python_slave5:latest
+    build: ./app/py_script/u5
+    restart: always
     container_name: ${APP_NAME:?err}-python-slave5
-    command: python "/app/py_script/test.py"
-
     networks:
       app_net:
         ipv4_address: 172.20.0.15
+
 
 networks:
   app_net:
