@@ -27,86 +27,21 @@ app.get("/", function(req, res){
     });
 });
 
-app.get("/unity1", function(req, res){
-    var cmd = `SELECT * FROM (SELECT * FROM unity WHERE id_unite = 1 ORDER BY date_insertion DESC LIMIT 10) as quer ORDER BY quer.date_insertion ASC`;
+app.get("/unity:number", function(req, res){
+    var cmd = `SELECT * FROM (SELECT * FROM unity WHERE id_unite = ${req.params.number} ORDER BY date_insertion DESC LIMIT 10) as quer ORDER BY quer.date_insertion ASC`;
     conn.query(cmd, function(err, result) {
         if (err) throw err;
-        res.render('unity_1.ejs', {result: result});
+        res.render(`unity_${req.params.number}.ejs`, {result: result});
     });
 });
 
-app.get("/unity2", function(req, res){
-    var cmd = `SELECT * FROM (SELECT * FROM unity WHERE id_unite = 2 ORDER BY date_insertion DESC LIMIT 10) as quer ORDER BY quer.date_insertion ASC`;
-    conn.query(cmd, function(err, result) {
-        if (err) throw err;
-        res.render('unity_2.ejs', {result: result});
-    });
-});
-
-app.get("/unity3", function(req, res){
-    var cmd = `SELECT * FROM (SELECT * FROM unity WHERE id_unite = 3 ORDER BY date_insertion DESC LIMIT 10) as quer ORDER BY quer.date_insertion ASC`;
-    conn.query(cmd, function(err, result) {
-        if (err) throw err;
-        res.render('unity_3.ejs', {result: result});
-    });
-});
-
-app.get("/unity4", function(req, res){
-    var cmd = `SELECT * FROM (SELECT * FROM unity WHERE id_unite = 4 ORDER BY date_insertion DESC LIMIT 10) as quer ORDER BY quer.date_insertion ASC`;
-    conn.query(cmd, function(err, result) {
-        if (err) throw err;
-        res.render('unity_4.ejs', {result: result});
-    });
-});
-
-app.get("/unity5", function(req, res){
-    var cmd = `SELECT * FROM (SELECT * FROM unity WHERE id_unite = 5 ORDER BY date_insertion DESC LIMIT 10) as quer ORDER BY quer.date_insertion ASC`;
-    conn.query(cmd, function(err, result) {
-        if (err) throw err;
-        res.render('unity_5.ejs', {result: result});
-    });
-});
-
-app.get("/update1", function(req, res){
-    var cmd = `SELECT * FROM (SELECT * FROM unity WHERE id_unite = 1 ORDER BY date_insertion DESC LIMIT 1) as quer ORDER BY quer.date_insertion ASC`;
+app.get("/update:number", function(req, res){
+    var cmd = `SELECT * FROM (SELECT * FROM unity WHERE id_unite = ${req.params.number} ORDER BY date_insertion DESC LIMIT 1) as quer ORDER BY quer.date_insertion ASC`;
     conn.query(cmd, function(err, result) {
         if (err) throw err;
         res.send({result: result});
     });
 });
-
-app.get("/update2", function(req, res){
-    var cmd = `SELECT * FROM (SELECT * FROM unity WHERE id_unite = 2 ORDER BY date_insertion DESC LIMIT 1) as quer ORDER BY quer.date_insertion ASC`;
-    conn.query(cmd, function(err, result) {
-        if (err) throw err;
-        res.send({result: result});
-    });
-});
-
-app.get("/update3", function(req, res){
-    var cmd = `SELECT * FROM (SELECT * FROM unity WHERE id_unite = 3 ORDER BY date_insertion DESC LIMIT 1) as quer ORDER BY quer.date_insertion ASC`;
-    conn.query(cmd, function(err, result) {
-        if (err) throw err;
-        res.send({result: result});
-    });
-});
-
-app.get("/update4", function(req, res){
-    var cmd = `SELECT * FROM (SELECT * FROM unity WHERE id_unite = 4 ORDER BY date_insertion DESC LIMIT 1) as quer ORDER BY quer.date_insertion ASC`;
-    conn.query(cmd, function(err, result) {
-        if (err) throw err;
-        res.send({result: result});
-    });
-});
-
-app.get("/update5", function(req, res){
-    var cmd = `SELECT * FROM (SELECT * FROM unity WHERE id_unite = 5 ORDER BY date_insertion DESC LIMIT 1) as quer ORDER BY quer.date_insertion ASC`;
-    conn.query(cmd, function(err, result) {
-        if (err) throw err;
-        res.send({result: result});
-    });
-});
-
 
 app.engine('html', require('ejs').renderFile);
 app.set('port', process.env.PORT || 6060);
