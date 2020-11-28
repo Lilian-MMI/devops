@@ -38,25 +38,48 @@ data = conn.recv(1024).decode("utf-8")
 
 data_decode = json.loads(data)
 
-mycursor = mydb.cursor()
+if(1 <= data_decode['id_unite'] <= 5 & 0 <= data_decode['temp_cuve'] <= 100 & 0 <= data_decode['poids_cuve'] < 100000):
+    mycursor = mydb.cursor()
 
-sql = "INSERT INTO unity (id_unite, date_insertion, date_releve, temp_cuve, temp_ex, poids_cuve, poids_pro, m_ph, m_k, c_nacl, bact_sal, bact_e_coli, bact_list) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-val = (data_decode['id_unite'],
-       datetime.now(),
-       data_decode['date_epoch'],
-       data_decode['temp_cuve'],
-       data_decode['temp_ex'],
-       data_decode['poids_cuve'],
-       data_decode['poids_pro'],
-       data_decode['m_ph'],
-       data_decode['m_k'],
-       data_decode['c_nacl'],
-       data_decode['bact_sal'],
-       data_decode['bact_e_coli'],
-       data_decode['bact_list'])
-mycursor.execute(sql, val)
+    sql = "INSERT INTO unity (id_unite, date_insertion, date_releve, temp_cuve, temp_ex, poids_cuve, poids_pro, m_ph, m_k, c_nacl, bact_sal, bact_e_coli, bact_list) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+    val = (data_decode['id_unite'],
+           datetime.now(),
+           data_decode['date_epoch'],
+           data_decode['temp_cuve'],
+           data_decode['temp_ex'],
+           data_decode['poids_cuve'],
+           data_decode['poids_pro'],
+           data_decode['m_ph'],
+           data_decode['m_k'],
+           data_decode['c_nacl'],
+           data_decode['bact_sal'],
+           data_decode['bact_e_coli'],
+           data_decode['bact_list'])
+    mycursor.execute(sql, val)
 
-mydb.commit()
+    mydb.commit()
+
+else:
+    mycursor = mydb.cursor()
+
+    sql = "INSERT INTO erreur (id_unite, date_insertion, date_releve, temp_cuve, temp_ex, poids_cuve, poids_pro, m_ph, m_k, c_nacl, bact_sal, bact_e_coli, bact_list) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+    val = (data_decode['id_unite'],
+           datetime.now(),
+           data_decode['date_epoch'],
+           data_decode['temp_cuve'],
+           data_decode['temp_ex'],
+           data_decode['poids_cuve'],
+           data_decode['poids_pro'],
+           data_decode['m_ph'],
+           data_decode['m_k'],
+           data_decode['c_nacl'],
+           data_decode['bact_sal'],
+           data_decode['bact_e_coli'],
+           data_decode['bact_list'])
+    mycursor.execute(sql, val)
+
+    mydb.commit()
+
 
 conn.send(data.encode())  # send data to the client
 
