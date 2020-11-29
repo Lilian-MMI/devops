@@ -9,8 +9,4 @@ RUN pip install aiohttp
 
 COPY . .
 
-<<<<<<< HEAD
 CMD [ "python", "./main.py", "--host", "0.0.0.0"]
-=======
-CMD ["python", "./main.py", "--host", "0.0.0.0"]
->>>>>>> Lilian
