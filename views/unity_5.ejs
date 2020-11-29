@@ -377,16 +377,20 @@
                             <h5 class="font-bold uppercase text-gray-600">Poids	du produit fini réalisé</h5>
                         </div>
                         <div class="p-5">
+                            <% var hello = result[0].temp_cuve %>
+                            <% var hello2 = result.length %>
+
+
                             <canvas id="chartjs-10" class="chartjs" width="undefined" height="undefined"></canvas>
                             <script>
-
+                                console.log(<%= hello2 %>);
                                 var chart10 = new Chart(document.getElementById("chartjs-10"), {
                                     "type": "line",
                                     "data": {
                                         "labels": [<% result.forEach(function(entry) { %> jQuery.timeago('<%- JSON.stringify(entry.date_insertion) %>'), <% }) %>],
                                         "datasets": [{
                                             "label": "Poids	du produit fini réalisé",
-                                            "data": [ <% result.forEach(function(entry) { %><%= entry.poids_pro %>, <% }) %> ],
+                                            "data": ['0', <% for(var i=0; i < result.length; i++) { if(i>0){ %> '<%- result[i-1].poids_cuve - result[i].poids_cuve %>', <% }} %>],
                                             "fill": true,
                                             "borderColor": "rgb(75, 192, 192)",
                                             "lineTension": 0.1
@@ -412,11 +416,13 @@
         
     <script type="text/javascript">
         let last_update;
+        let last_poids_lait_cuve;
         var getData = function() {
             $.ajax({
                 url: 'http://localhost:6060/update5',
                 success: function(data) {
-                    current_update = data.result.map(elm => (elm['date_insertion']))
+                    let current_update = data.result.map(elm => (elm['date_insertion']))
+                    let current_poids_lait_cuve = data.result.map(elm => (elm['poids_cuve']))
                     if(last_update == null || last_update.toString() !== current_update.toString()) {
                         chart1.data.labels.shift();
                         chart1.data.labels.push(data.result.map(elm => jQuery.timeago(elm['date_insertion'])));
@@ -466,8 +472,12 @@
                         chart10.data.labels.shift();
                         chart10.data.labels.push(data.result.map(elm => jQuery.timeago(elm['date_insertion'])));
                         chart10.data.datasets[0].data.shift();
-                        chart10.data.datasets[0].data.push(data.result.map(elm => elm['poids_pro']));
-
+                        if (last_poids_lait_cuve == null) {
+                            chart10.data.datasets[0].data.push(0);
+                        } else {
+                            chart10.data.datasets[0].data.push(last_poids_lait_cuve - current_poids_lait_cuve); 
+                        }
+                        
                         chart1.update();
                         chart2.update();
                         chart3.update();
@@ -480,6 +490,7 @@
                         chart10.update();
 
                         last_update = data.result.map(elm => (elm['date_insertion']))
+                        last_poids_lait_cuve = data.result.map(elm => (elm['poids_cuve']))
                     }
 
                 }

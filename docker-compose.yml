@@ -35,11 +35,16 @@ services:
     container_name: ${APP_NAME:?err}-nodejs
     build: .
     restart: always
-    command: npm start
     ports:
       - "6060:6060"
     depends_on:
       - mariadb
+    command: sh -c "/wait && npm start"
+    environment:
+      - WAIT_HOSTS=mariadb:3306
+      - WAIT_HOSTS_TIMEOUT=300
+      - WAIT_SLEEP_INTERVAL=30
+      - WAIT_HOST_CONNECT_TIMEOUT=30
     networks:
       app_net:
         ipv4_address: 172.20.0.4

@@ -1,4 +1,4 @@
-FROM python:3.8
+FROM python:latest
 
 RUN pip3 install mariadb
 RUN pip3 install flask
